@@ -1,0 +1,355 @@
+<?php
+session_start();
+if(isset($_SESSION['email'])){
+include('../includes/connection.php');
+
+$total_a = 0;
+$total_ap = 0;
+$total_an = 0;
+$total_b = 0;
+$total_bp = 0;
+$total_bn = 0;
+$total_abp = 0;
+$total_abn = 0;
+$total_op = 0;
+$total_on = 0;
+
+$query = "select stock from stocks where blood_group = 'A'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_a = $total_a + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'A+'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_ap = $total_ap + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'A-'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_an = $total_an + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'B'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_b = $total_b + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'B+'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_bp = $total_bp + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'B-'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_bn = $total_bn + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'AB+'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_abp = $total_abp + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'AB-'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_abn = $total_abn + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'O+'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_op = $total_op + number_format($row['stock']);
+}
+
+$query = "select stock from stocks where blood_group = 'O-'";
+$query_run = mysqli_query($connection,$query);
+while($row = mysqli_fetch_assoc($query_run)){
+    $total_on = $total_on + number_format($row['stock']);
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap files -->
+    <link rel="stylesheet" href="../bootstrap/css//bootstrap.min.css">
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- jQuery file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="../includes/juqery_latest.js"></script>
+    <style>
+        body{
+            background-color: #EFF5F5;
+        }
+        .info_card{
+            box-shadow: 3px 3px 3px gray;
+            height:150px;
+            border-left:2px solid gray;
+            border-top:2px solid gray;
+            padding-top:1%;
+            padding-left:3%;
+            border-radius:3%;
+            margin-left:2%;  
+            margin-bottom: 2%;
+            margin-top: 2%;
+        }
+
+        /* .info_card:hover{
+            box-shadow: 3px 3px 3px gray;
+            height:200px;
+            border-left:2px solid gray;
+            border-top:2px solid gray;
+            padding-top:4%;
+            padding-left:3%;
+            margin:2%;
+            border-radius:3%;
+            height: 210px;
+            font-size: large; 
+        } */
+
+        /* .nav-link{
+            align-items: center;
+            /* align-items: flex-end; */
+            /* color: white;
+            opacity: 0.9;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover{
+            color: white;
+            cursor: pointer;
+            opacity: 1;
+            text-decoration: underline;
+        } */ */
+
+        /* @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        } */
+
+        
+        .navbar-brand img {
+            height: 40px; /* Adjust height as needed */
+            width: auto; /* Maintain aspect ratio */
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#donors_list").click(function(){
+            $("#main-container").load("donors.php");
+            });
+        });
+
+        $(document).ready(function(){
+            $("#patients_list").click(function(){
+            $("#main-container").load("patients.php");
+            });
+        });
+        $(document).ready(function(){
+            $("#query").click(function(){
+            $("#main-container").load("query.php");
+            });
+        });
+        $(document).ready(function(){
+            $("#add_city").click(function(){
+            $("#main-container").load("add_city.php");
+            });
+        });
+        $(document).ready(function(){
+            $("#city_list").click(function(){
+            $("#main-container").load("city_fetch.php");
+            });
+        });
+
+        $(document).ready(function(){
+            $("#manage_donation").click(function(){
+            $("#main-container").load("manage_donations.php");
+            });
+        });
+        
+        $(document).ready(function(){
+            $("#manage_requests").click(function(){
+            $("#main-container").load("manage_requests.php");
+            });
+        });
+
+    </script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <a class="navbar-brand" href="#">
+        <h3 style="color: black;">RedCross Donor</h3>
+    </a>
+    <div class="navbar-text d-none d-lg-block" style="color: white;">
+                <strong><?php echo $_SESSION['name']; ?></strong>
+            </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav text-center">
+            <li class="nav-item">
+                <a class="nav-link" href="admin_dashboard.php">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="donors_list">Donor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="query">Query</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="add_city">Add_City</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="city_list">City</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="patients_list">Patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="manage_donation">Donation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="manage_requests">Requests</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../logout.php">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+    <div class="container-fluid">
+        <div class="row" id="main-container">
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">A</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_a; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">A+</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_ap; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">A-</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_an; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">B</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_b; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">B+</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_bp; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">B-</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_bn; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">AB+</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_abp; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">AB-</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_abn; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">O+</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_op; ?> Units</b>
+            </div>
+            <div class="col-md-2 info_card">
+                <h3 class="text-danger">O-</h3>
+                <h5>Blood Available</h5>
+                <b>Total: <?php echo $total_on; ?> Units</b>
+            </div>
+        </div>
+    </div>
+<!-- <div class="container-fluid">
+<div class="row">
+    <div class="col-md-12 bg-danger" id="footer">
+        &copy 2024 Csit
+    </div>
+</div>
+</div> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<script>
+        // Fetch city names from the database
+        function fetchCities() {
+            $.ajax({
+                url: 'fetech_cities.php', // Replace with your PHP script to fetch cities
+                method: 'GET',
+                success: function(response) {
+                    var cities = JSON.parse(response);
+                    var dropdown = $('#city-dropdown');
+                    dropdown.empty();
+                    cities.forEach(function(city) {
+                        dropdown.append(`<a class="dropdown-item">${city}</a>`);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // When the City link is clicked, fetch and populate the dropdown
+        $('#city-link').click(function() {
+            fetchCities();
+        });
+    </script>
+</body>
+</html>
+<?php
+}
+else{
+    header('Location:login.php');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
